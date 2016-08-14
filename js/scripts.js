@@ -1,29 +1,50 @@
-$(document).ready(function () {
-    var minutes = 25;
-    var seconds =00;
+$(document).ready(function(){
+    var minutes=25;
+    var breakMinutes=5;
+    var isWorktime = true;
+    var started = false;
+    $("#timer").html(minutes+":"+"00");
+    
+$("#start").click(function(){
+    
+    newTimer(minutes,breakMinutes,isWorktime);
+   
+
+});  
+});
+
+function newTimer(minutes,breakMinutes,isWorktime){
+    if(isWorktime){
+    var countMinutes = minutes;
+    var countSeconds = 0;
+    }
+    else if(!isWorktime){
+    var countMinutes = breakMinutes;
+    var countSeconds = 0; 
+    }
     var countDown = function(){
-        if(seconds==0 && minutes==0){
-            alert("Break Time!");
+        if(countSeconds==0 && countMinutes==0){
             clearInterval(setIntervalID);
-        } else if(seconds==0 && minutes!=0){
-            minutes--;
-            seconds = 59;
+            isWorktime = !isWorktime;
+            newTimer(minutes,breakMinutes,isWorktime);
+            
+        } else if(countSeconds==0 && countMinutes!=0){
+            countMinutes--;
+            countSeconds = 59;
             
         } else{
-            seconds--;
+            countSeconds--;
         }
-        
-        formatTimer(minutes,seconds);
-        //$("#timer").html(minutes+":"+seconds);
-            
+        formatTimer(countMinutes,countSeconds);
+        //$("#timer").html(minutes+":"+seconds);     
     };
-      
+    clearInterval(setIntervalID);  
+    printStatus(isWorktime);
+    formatTimer(countMinutes,countSeconds);
+    var setIntervalID = setInterval(countDown,1000);
     
-    formatTimer(minutes,seconds);
-    
-      var setIntervalID = setInterval(countDown,1000);
-    
-});
+
+};
 
 function formatTimer(minutes,seconds){
     if(minutes<10 && seconds<10){
@@ -35,4 +56,13 @@ function formatTimer(minutes,seconds){
     }else{
      $("#timer").html(minutes+":"+seconds);
     }
-}
+};
+
+function printStatus(isWorkTime){
+    if(isWorkTime){
+        $("#timer-status").html("Get to Work!");
+    }
+    else{
+        $("#timer-status").html("Take a Break");
+    }
+};
