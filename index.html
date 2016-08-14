@@ -14,8 +14,18 @@
    <div class = "container-fluid contain-all">
        <h1>Pomodoro Time!</h1>
        <h2 id="timer-status"></h2>
+       <div id="container-buttons">
+           
+       <button type="button" id="work-time-decrement">-</button>
+        <h3 id="work-time"></h3>
+       <button type="button"id="work-time-increment">+</button>
+           
+       <button type="button" id="break-time-decrement">-</button>
+        <h3 id="break-time"></h3>   
+       <button type="button" id="break-time-increment" >+</button> 
+       </div>
        <div class ="container-timer">
-           <a href="#" onclick="newTimer(minutes,breakMinutes,isWorktime);" ><h2 id="timer"></h2></a>
+           <a href="#" id="start" ><h2 id="timer"></h2></a>
        </div>
         
        </div> 
