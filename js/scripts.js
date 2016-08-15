@@ -1,8 +1,8 @@
 $(document).ready(function () {
-    var minutes = 25;
-    var breakMinutes = 5;
+    var minutes = 1;
+    var breakMinutes = 1;
     
-    var countMinutes =25;
+    var countMinutes =1;
     var countSeconds = 0;
     
     var isWorktime = true;
@@ -44,7 +44,7 @@ $(document).ready(function () {
     });
 
 
-function startTimer() {
+function setTimer() {
     if (isWorktime) {
         countMinutes = minutes;
         countSeconds = 0;
@@ -54,19 +54,18 @@ function startTimer() {
         countSeconds = 0;
     }
     
-   
-   
-    printStatus(isWorktime);
-    formatTimer(countMinutes, countSeconds);
-    var setIntervalID = setInterval(timer, 1000);
-};
+}
 
 function timer(){
-   
+     printStatus();
      if (countSeconds == 0 && countMinutes == 0) {
-            clearInterval(setIntervalID);
             isWorktime = !isWorktime;
-            startTimer(minutes, breakMinutes, isWorktime);
+            setTimer();
+            updateStartingScreen();
+            clearInterval(countDown);
+            printStatus();    
+            pause = false;
+            
         }
         else if (countSeconds == 0 && countMinutes != 0) {
             countMinutes--;
@@ -94,8 +93,8 @@ function formatTimer() {
     
 }
 
-function printStatus(isWorkTime) {
-    if (isWorkTime) {
+function printStatus() {
+    if (isWorktime) {
         $("#timer-status").html("Get to Work!");
     }
     else {
@@ -104,7 +103,13 @@ function printStatus(isWorkTime) {
 }
 
 function updateStartingScreen() {
+    if(isWorktime){
     countMinutes = minutes;
+    breakMinutes = breakMinutes;
+    }
+    else{
+        countMinutes=breakMinutes;
+    }
     $("#work-time").html(minutes);
     $("#break-time").html(breakMinutes);
     $("#timer").html(minutes + ":" + "00");
