@@ -1,37 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
 
-<title>Pomodoro Clock</title>
-    
-<link rel ="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"> 
-<link rel = "stylesheet" href="css/styles.css">
-<meta name="viewport" content="width=device-width",initial-scale=1>    
-    
-</head>
+<head>
+    <title>Pomodoro Clock</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <meta name="viewport" content="width=device-width" ,initial-scale=1> </head>
 
 <body>
-   <div class = "container-fluid contain-all">
-       <h1>Pomodoro Time!</h1>
-       <h2 id="timer-status"></h2>
-       <div id="container-buttons">
+    <div class="container-fluid contain-all">
+        <h1>Pomodoro Time!</h1>
+        <h2 id="timer-status"></h2>
+        <div id="container-buttons">
+            
+                <div class="container-work-time">
+                    <h2>Work Time Length</h2>
+                    <a href="#" id="work-time-decrement"><p>-</p></a>
+                    <h3 id="work-time"></h3>  
+                    <a href="#" id="work-time-increment"><p>+</p></a> 
+                </div>
+                
+                <div class="container-break-time">
+                    <h2>Break Time Length</h2>
+                     <a href="#" id="break-time-decrement"><p>-</p></a>
+                    <h3 id="break-time"></h3>
+                    <a href="#" id="break-time-increment"><p>+</p></a>
+                </div>
            
-       <button type="button" id="work-time-decrement">-</button>
-        <h3 id="work-time"></h3>
-       <button type="button"id="work-time-increment">+</button>
-           
-       <button type="button" id="break-time-decrement">-</button>
-        <h3 id="break-time"></h3>   
-       <button type="button" id="break-time-increment" >+</button> 
-       </div>
-       <div class ="container-timer">
-           <a href="#" id="start" ><h2 id="timer"></h2></a>
-       </div>
-        
-       </div> 
+        </div>
+        <div class="container-timer">
+            <div class="circle">
+            <a href="#" id="start"><h1 id="timer"></h1></a> 
+        </div>
+    </div>
+    </div>
 </body>
-</html>
 
-<script src="https://code.jquery.com/jquery-3.1.0.min.js"   integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="   crossorigin="anonymous"></script>  
-<script src="js/scripts.js" ></script>   
-    
+</html>
+<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
+<script src="js/scripts.js"></script>

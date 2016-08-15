@@ -1,12 +1,12 @@
 $(document).ready(function () {
-    var minutes = 1;
-    var breakMinutes = 1;
+    var minutes = 25;
+    var breakMinutes = 5;
     
-    var countMinutes =1;
+    var countMinutes =25;
     var countSeconds = 0;
     
     var isWorktime = true;
-    var pause = false;
+    var pause = true;
     
     var countDown;
     
@@ -14,21 +14,23 @@ $(document).ready(function () {
     updateStartingScreen();
     
     $("#start").click(function () {
-        if(pause==false){
+        if(pause==true){
             countDown=setInterval(timer,1000);
-            pause = true;
+            pause = false;
         }
         else{
             clearInterval(countDown);
-            pause = false;
+            pause = true;
         }
         
     });
     
     // Increment or Decrement Work and Break Time Buttons
     $("#container-buttons").on("click", "#work-time-decrement", function () {
+        if(minutes>1){
         minutes--;
         updateStartingScreen();
+        }
     });
     $("#container-buttons").on("click", "#work-time-increment", function () {
         minutes++;
@@ -103,9 +105,11 @@ function printStatus() {
 }
 
 function updateStartingScreen() {
+    if(pause){
     if(isWorktime){
     countMinutes = minutes;
     breakMinutes = breakMinutes;
+    countSeconds=0;
     }
     else{
         countMinutes=breakMinutes;
@@ -113,5 +117,9 @@ function updateStartingScreen() {
     $("#work-time").html(minutes);
     $("#break-time").html(breakMinutes);
     $("#timer").html(minutes + ":" + "00");
+    }
+    else{
+        return false;
+    }
 }
 });
