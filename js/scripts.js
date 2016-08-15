@@ -9,6 +9,7 @@ $(document).ready(function () {
     var pause = true;
     
     var countDown;
+    var timesUp = document.getElementById("buzzer");
     
     
     updateStartingScreen();
@@ -33,16 +34,22 @@ $(document).ready(function () {
         }
     });
     $("#container-buttons").on("click", "#work-time-increment", function () {
+        if(minutes<60){
         minutes++;
         updateStartingScreen();
+        }
     });
     $("#container-buttons").on("click", "#break-time-decrement", function () {
+        if(breakMinutes>1){
         breakMinutes--;
         updateStartingScreen();
+        }
     });
     $("#container-buttons").on("click", "#break-time-increment", function () {
+        if(breakMinutes<30){
         breakMinutes++;
         updateStartingScreen();
+        }
     });
 
 
@@ -61,12 +68,13 @@ function setTimer() {
 function timer(){
      printStatus();
      if (countSeconds == 0 && countMinutes == 0) {
+            timesUp.play();
             isWorktime = !isWorktime;
             setTimer();
             updateStartingScreen();
             clearInterval(countDown);
             printStatus();    
-            pause = false;
+            pause = true;
             
         }
         else if (countSeconds == 0 && countMinutes != 0) {
@@ -106,18 +114,23 @@ function printStatus() {
 
 function updateStartingScreen() {
     if(pause){
-    if(isWorktime){
-    countMinutes = minutes;
-    breakMinutes = breakMinutes;
-    countSeconds=0;
+        if(isWorktime){
+        countMinutes = minutes;
+        breakMinutes = breakMinutes;
+        countSeconds=0;
+        $("#work-time").html(minutes);
+        $("#break-time").html(breakMinutes);
+        $("#timer").html(minutes + ":" + "00");    
+        }
+        else{
+            countMinutes=breakMinutes;
+            $("#work-time").html(minutes);
+            $("#break-time").html(breakMinutes);
+            $("#timer").html(breakMinutes + ":" + "00");    
+        }
+    
     }
-    else{
-        countMinutes=breakMinutes;
-    }
-    $("#work-time").html(minutes);
-    $("#break-time").html(breakMinutes);
-    $("#timer").html(minutes + ":" + "00");
-    }
+    
     else{
         return false;
     }

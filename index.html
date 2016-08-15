@@ -4,10 +4,14 @@
 <head>
     <title>Pomodoro Clock</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Vollkorn:400,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="css/styles.css">
     <meta name="viewport" content="width=device-width" ,initial-scale=1> </head>
 
 <body>
+    <audio id="buzzer">
+    <source src="sounds/beep.mp3">
+    </audio>
     <div class="container-fluid contain-all">
         <h1>Pomodoro Time!</h1>
         <h2 id="timer-status"></h2>
