@@ -1,4 +1,7 @@
 $(document).ready(function () {
+    
+  
+    
     var minutes = 25;
     var breakMinutes = 5;
     
@@ -10,7 +13,7 @@ $(document).ready(function () {
     
     var countDown;
     var timesUp = document.getElementById("buzzer");
-    
+      
     
     updateStartingScreen();
     
@@ -120,13 +123,15 @@ function updateStartingScreen() {
         countSeconds=0;
         $("#work-time").html(minutes);
         $("#break-time").html(breakMinutes);
-        $("#timer").html(minutes + ":" + "00");    
+        $("#timer").html(minutes + ":" + "00");
+       
         }
         else{
             countMinutes=breakMinutes;
             $("#work-time").html(minutes);
             $("#break-time").html(breakMinutes);
-            $("#timer").html(breakMinutes + ":" + "00");    
+            $("#timer").html(breakMinutes + ":" + "00"); 
+            
         }
     
     }
@@ -135,4 +140,5 @@ function updateStartingScreen() {
         return false;
     }
 }
+       
 });
