@@ -13,11 +13,30 @@ $(document).ready(function () {
     
     var countDown;
     var timesUp = document.getElementById("buzzer");
+    
+      $('#ex1').slider({
+	formatter: function(value) {
+        $("#work-time").html(value);
+        $("#timer").html(value+":00");
+        countMinutes=value;
+        countSeconds=0;
+		return 'Current value: ' + value;
+	}
+});  
+    
+    $('#ex2').slider({
+	formatter: function(value) {
+        $("#break-time").html(value);
+        breakMinutes=value;
+        countSeconds=0;
+		return 'Current value: ' + value;
+	}
+});
       
     
     updateStartingScreen();
     
-    $("#start").click(function () {
+    $("#start-btn").click(function () {
         if(pause==true){
             countDown=setInterval(timer,1000);
             pause = false;

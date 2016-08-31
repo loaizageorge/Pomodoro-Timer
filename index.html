@@ -4,6 +4,8 @@
 <head>
     <title>Pomodoro Clock</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.2.0/css/bootstrap-slider.min.css">
     
     <link href='https://fonts.googleapis.com/css?family=Vollkorn:400,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="css/styles.css">
@@ -20,32 +22,45 @@
             
                 <div class="container-work-time">
                     <h2>Work Time Length</h2>
-                    <a href="#" id="work-time-decrement"><p>-</p></a>
-                    <h3 id="work-time"></h3>  
+                     <h3 id="work-time"></h3>
+                     <input id="ex1" data-slider-id='ex1Slider' type="text" data-slider-min="1" data-slider-max="60" data-slider-step="1" data-slider-value="25"/>
+                <!--    <a href="#" id="work-time-decrement"><p>-</p></a>
+                   
                     <a href="#" id="work-time-increment"><p>+</p></a>
-                    
+                    -->
                   
                     
                 </div>
                 
                 <div class="container-break-time">
                     <h2>Break Time Length</h2>
-                     <a href="#" id="break-time-decrement"><p>-</p></a>
                     <h3 id="break-time"></h3>
+                     <input id="ex2" data-slider-id='ex2Slider' type="text" data-slider-min="1" data-slider-max="30" data-slider-step="1" data-slider-value="5"/>
+                    
+                    <!--
+                     <a href="#" id="break-time-decrement"><p>-</p></a>
+                    
                     <a href="#" id="break-time-increment"><p>+</p></a>
+-->
                 </div>
+            
+           
            
         </div>
         <div class="container-timer">
             <div class="circle">
-            <a href="#" id="start"><h1 id="timer"></h1></a> 
+            <a href="#"><h1 id="timer"></h1></a> 
         </div>
     </div>
+        <div class="container-action-buttons">
+            <a href="#"><i id="start-btn" class="fa fa-play-circle-o fa-5x" aria-hidden="true"></i></a>
+        </div>
     </div>
 </body>
 
 </html>
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous">
+    
 </script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.2.0/bootstrap-slider.min.js"></script>
 <script src="js/scripts.js"></script>
