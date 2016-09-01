@@ -14,22 +14,28 @@ $(document).ready(function () {
     var countDown;
     var timesUp = document.getElementById("buzzer");
     
-      $('#ex1').slider({
+      $('#work-time-slider').slider({
+         
 	formatter: function(value) {
+        if(pause){
         $("#work-time").html(value);
         $("#timer").html(value+":00");
         countMinutes=value;
         countSeconds=0;
 		return 'Current value: ' + value;
+        }
 	}
+          
 });  
     
-    $('#ex2').slider({
+    $('#break-time-slider').slider({
 	formatter: function(value) {
+        if(pause){
         $("#break-time").html(value);
         breakMinutes=value;
         countSeconds=0;
 		return 'Current value: ' + value;
+        }
 	}
 });
     
@@ -99,7 +105,8 @@ function timer(){
             setTimer();
             updateStartingScreen();
             clearInterval(countDown);
-            printStatus();    
+            printStatus();
+          $("#start-stop-btn").toggleClass("fa-play-circle fa-pause-circle");
             pause = true;
             
         }
@@ -163,5 +170,6 @@ function updateStartingScreen() {
         return false;
     }
 }
+    
        
 });
