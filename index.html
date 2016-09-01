@@ -16,12 +16,12 @@
     <source src="sounds/beep.mp3">
     </audio>
     <div class="container-fluid contain-all">
-        <h1>Pomodoro Time!</h1>
+        <h1>Pomodoro Clock</h1>
         <h2 id="timer-status"></h2>
         <div id="container-buttons">
             
                 <div class="container-work-time">
-                    <h2>Work Time Length</h2>
+                    <h2>Session Length</h2>
                      <h3 id="work-time"></h3>
                      <input id="ex1" data-slider-id='ex1Slider' type="text" data-slider-min="1" data-slider-max="60" data-slider-step="1" data-slider-value="25"/>
                 <!--    <a href="#" id="work-time-decrement"><p>-</p></a>
@@ -33,7 +33,7 @@
                 </div>
                 
                 <div class="container-break-time">
-                    <h2>Break Time Length</h2>
+                    <h2>Break Length</h2>
                     <h3 id="break-time"></h3>
                      <input id="ex2" data-slider-id='ex2Slider' type="text" data-slider-min="1" data-slider-max="30" data-slider-step="1" data-slider-value="5"/>
                     
@@ -53,7 +53,9 @@
         </div>
     </div>
         <div class="container-action-buttons">
-            <a href="#"><i id="start-btn" class="fa fa-play-circle-o fa-5x" aria-hidden="true"></i></a>
+            <a href="#"><i class="action-btn fa fa-repeat fa-5x" aria-hidden="true"></i></a>
+            <a href="#"><i id="start-stop-btn" class="action-btn fa fa-play-circle fa-5x" aria-hidden="true"></i></a>
+            
         </div>
     </div>
 </body>

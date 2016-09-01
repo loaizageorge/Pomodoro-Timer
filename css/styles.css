@@ -2,8 +2,8 @@ body{
     text-align: center;
     font-family: 'Volkorn',serif;
     
-    background-color: #060690;
-    color: red;
+    background-color: #6310b5;
+    color: white;
 }
 
 
@@ -19,7 +19,7 @@ a:visited,
 a:hover,
 a:active{
 
-    color: yellow;
+    color: white;
     text-decoration: none;
 }
 
@@ -45,19 +45,28 @@ a:active{
     
 }
 
+#timer{
+    color: white;
+}
+
 #start{
     position: absolute;
-    top: 50%;
+    top: 75%;
     left: 50%;
     transform: translate(-50%,-50%);
     color: white;
 }
 
-#ex1Slider .slider-selection {
-	background: #BABABA;
+#ex1Slider .slider-selection,
+#ex2Slider .slider-selection{
+	background: yellow;
 }
 
-#start-btn{
-    color: red;
-    
+#start-stop-btn{color: #ff5353;}
+
+.action-btn{
+    padding: 25px;
 }
+
+
+

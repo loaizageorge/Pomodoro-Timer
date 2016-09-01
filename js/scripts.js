@@ -32,11 +32,14 @@ $(document).ready(function () {
 		return 'Current value: ' + value;
 	}
 });
+    
+    
       
     
     updateStartingScreen();
     
-    $("#start-btn").click(function () {
+    $("#start-stop-btn").click(function () {
+        $("#start-stop-btn").toggleClass("fa-play-circle fa-pause-circle");
         if(pause==true){
             countDown=setInterval(timer,1000);
             pause = false;
@@ -45,6 +48,7 @@ $(document).ready(function () {
             clearInterval(countDown);
             pause = true;
         }
+        
         
     });
     
