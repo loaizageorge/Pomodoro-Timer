@@ -10,8 +10,34 @@ $(document).ready(function () {
     var pause = true;
     var countDown; // Is used to store the setInterval function so it can be cleared from anywhere.
     var timesUp = document.getElementById("buzzer");
+    
+    // Variables used for the count down animation
+    var percentPerSecond = convertToPercent(countMinutes);
+    var totalPercent = 100;
+    var timePercent = totalPercent+"%";
+    
+    $(".fill").css("height",timePercent);
+    
     updateStartingScreen();
-    // Handle Slider logic    
+    // Handle Slider logic
+    $('#work-time-slider').slider();
+    $('#break-time-slider').slider();
+    
+    $('#work-time-slider').on("slide", function(slideEvt) {
+	$('#work-time-slider-value').text(slideEvt.value);
+    minutes = slideEvt.value;
+    countMinutes = minutes;
+        percentPerSecond = convertToPercent(countMinutes);
+        updateStartingScreen();
+
+});
+    
+    $('#break-time-slider').on("slide", function(slideEvt) {
+	$('#break-time-slider-value').text(slideEvt.value);
+});
+
+    
+  /*  
     $('#work-time-slider').slider({
         formatter: function (value) {
             if (pause) {
@@ -34,7 +60,7 @@ $(document).ready(function () {
                 return 'Current value: ' + value;
             }
         }
-    });
+    });*/
     // Handle Reset and Start/Stop buttons
     $("#reset-btn").click(function () {
         clearInterval(countDown);
@@ -111,21 +137,22 @@ $(document).ready(function () {
         else {
             countSeconds--;
         }
+        fillUpCircle();
         formatTimer(countMinutes, countSeconds);
     }
 
     function formatTimer() {
         if (countMinutes < 10 && countSeconds < 10) {
-            $("#timer").html("0" + countMinutes + ":" + "0" + countSeconds);
+            $("#time").html("0" + countMinutes + ":" + "0" + countSeconds);
         }
         else if (countMinutes < 10) {
-            $("#timer").html("0" + countMinutes + ":" + countSeconds);
+            $("#time").html("0" + countMinutes + ":" + countSeconds);
         }
         else if (countSeconds < 10) {
-            $("#timer").html(countMinutes + ":" + "0" + countSeconds);
+            $("#time").html(countMinutes + ":" + "0" + countSeconds);
         }
         else {
-            $("#timer").html(countMinutes + ":" + countSeconds);
+            $("#time").html(countMinutes + ":" + countSeconds);
         }
     }
 
@@ -146,17 +173,30 @@ $(document).ready(function () {
                 countSeconds = 0;
                 $("#work-time").html(minutes);
                 $("#break-time").html(breakMinutes);
-                $("#timer").html(minutes + ":" + "00");
+                $("#time").html(minutes + ":" + "00");
             }
             else {
                 countMinutes = breakMinutes;
                 $("#work-time").html(minutes);
                 $("#break-time").html(breakMinutes);
-                $("#timer").html(breakMinutes + ":" + "00");
+                $("#time").html(breakMinutes + ":" + "00");
             }
         }
         else {
             return false;
         }
     }
+    /*************CIRCLE PROGRESS LOGIC ************/
+    function convertToPercent(timeInMinutes) {
+        var percentOfASecond = 100 / (timeInMinutes*60);
+        percentOfASecond = (percentOfASecond.toFixed(4)) / 1;
+        return percentOfASecond;
+    }
+
+    function fillUpCircle() {
+        totalPercent = totalPercent - percentPerSecond;
+        var percent = totalPercent + "%";
+        $(".fill").css("height", percent);
+    }
+
 });
