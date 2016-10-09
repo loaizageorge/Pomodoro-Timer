@@ -27,13 +27,15 @@ $(document).ready(function () {
 	$('#work-time-slider-value').text(slideEvt.value);
     minutes = slideEvt.value;
     countMinutes = minutes;
-        percentPerSecond = convertToPercent(countMinutes);
-        updateStartingScreen();
+    percentPerSecond = convertToPercent(countMinutes);
+    updateStartingScreen();
 
 });
     
     $('#break-time-slider').on("slide", function(slideEvt) {
 	$('#break-time-slider-value').text(slideEvt.value);
+        breakMinutes = slideEvt.value;
+
 });
 
     
@@ -63,47 +65,28 @@ $(document).ready(function () {
     });*/
     // Handle Reset and Start/Stop buttons
     $("#reset-btn").click(function () {
+        if(minutes!=countMinutes){
         clearInterval(countDown);
         pause = true;
         countMinutes = minutes;
         countSeconds = 0;
-        $("#start-stop-btn").toggleClass("fa-play-circle fa-pause-circle");
+        //$("#start-stop-btn").toggleClass("fa-play-circle fa-pause-circle");
         formatTimer();
+        }
     });
     $("#start-stop-btn").click(function () {
         $("#start-stop-btn").toggleClass("fa-play-circle fa-pause-circle");
         if (pause == true) {
             countDown = setInterval(timer, 1000);
+            $('#work-time-slider').slider("disable");
+           $('#break-time-slider').slider("disable");
             pause = false;
         }
         else {
             clearInterval(countDown);
+            $('#work-time-slider').slider("enable");
+           $('#break-time-slider').slider("enable");
             pause = true;
-        }
-    });
-    // Increment or Decrement Work and Break Time Buttons
-    $("#container-buttons").on("click", "#work-time-decrement", function () {
-        if (minutes > 1) {
-            minutes--;
-            updateStartingScreen();
-        }
-    });
-    $("#container-buttons").on("click", "#work-time-increment", function () {
-        if (minutes < 60) {
-            minutes++;
-            updateStartingScreen();
-        }
-    });
-    $("#container-buttons").on("click", "#break-time-decrement", function () {
-        if (breakMinutes > 1) {
-            breakMinutes--;
-            updateStartingScreen();
-        }
-    });
-    $("#container-buttons").on("click", "#break-time-increment", function () {
-        if (breakMinutes < 30) {
-            breakMinutes++;
-            updateStartingScreen();
         }
     });
 
@@ -111,10 +94,13 @@ $(document).ready(function () {
         if (isWorktime) {
             countMinutes = minutes;
             countSeconds = 0;
+           transitionToBreak();
         }
         else if (!isWorktime) {
             countMinutes = breakMinutes;
             countSeconds = 0;
+             transitionToWork();
+            
         }
     }
 
@@ -136,8 +122,9 @@ $(document).ready(function () {
         }
         else {
             countSeconds--;
+            fillUpCircle();
         }
-        fillUpCircle();
+        
         formatTimer(countMinutes, countSeconds);
     }
 
@@ -159,9 +146,11 @@ $(document).ready(function () {
     function printStatus() {
         if (isWorktime) {
             $("#timer-status").html("Get to Work!");
+            
+             
         }
         else {
-            $("#timer-status").html("Take a Break");
+            $("#timer-status").html("Take a Break"); 
         }
     }
 
@@ -174,6 +163,8 @@ $(document).ready(function () {
                 $("#work-time").html(minutes);
                 $("#break-time").html(breakMinutes);
                 $("#time").html(minutes + ":" + "00");
+                
+                
             }
             else {
                 countMinutes = breakMinutes;
@@ -185,6 +176,27 @@ $(document).ready(function () {
         else {
             return false;
         }
+    }
+    
+    function transitionToWork(){
+        $(".circle").css("background","rgb(248, 99, 99)");
+        $(".fill").css("background","rgb(41, 221, 41)");
+        percentPerSecond = convertToPercent(breakMinutes);
+        totalPercent = 100;
+        timePercent = totalPercent+"%";
+        $(".fill").css("height",timePercent);
+       
+    }
+    
+    function transitionToBreak(){
+        alert("Break!");
+        $(".circle").css("background","rgb(41, 221, 41)");
+        $(".fill").css("background","rgb(248, 99, 99)");
+        percentPerSecond = convertToPercent(minutes);
+        totalPercent = 100;
+        timePercent = totalPercent+"%";
+        $(".fill").css("height",timePercent);
+        
     }
     /*************CIRCLE PROGRESS LOGIC ************/
     function convertToPercent(timeInMinutes) {
