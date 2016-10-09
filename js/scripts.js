@@ -26,8 +26,11 @@ $(document).ready(function () {
     $('#work-time-slider').on("slide", function(slideEvt) {
 	$('#work-time-slider-value').text(slideEvt.value);
     minutes = slideEvt.value;
-    countMinutes = minutes;
-    percentPerSecond = convertToPercent(countMinutes);
+    //countMinutes = minutes;
+    if(isWorktime){
+        percentPerSecond = convertToPercent(minutes);
+    }    
+    
     updateStartingScreen();
 
 });
@@ -35,57 +38,46 @@ $(document).ready(function () {
     $('#break-time-slider').on("slide", function(slideEvt) {
 	$('#break-time-slider-value').text(slideEvt.value);
         breakMinutes = slideEvt.value;
+        if(!isWorktime){
+            percentPerSecond = convertToPercent(breakMinutes);
+        }
+        updateStartingScreen();
 
 });
 
     
-  /*  
-    $('#work-time-slider').slider({
-        formatter: function (value) {
-            if (pause) {
-                // Automatically update the numbers on both the clock(if currently on that session)    
-                $("#work-time").html(value);
-                $("#timer").html(value + ":00");
-                minutes = value;
-                countMinutes = value;
-                countSeconds = 0;
-                return 'Current value: ' + value;
-            }
-        }
-    });
-    $('#break-time-slider').slider({
-        formatter: function (value) {
-            if (pause) {
-                $("#break-time").html(value);
-                breakMinutes = value;
-                countSeconds = 0;
-                return 'Current value: ' + value;
-            }
-        }
-    });*/
+
     // Handle Reset and Start/Stop buttons
     $("#reset-btn").click(function () {
         if(minutes!=countMinutes){
         clearInterval(countDown);
         pause = true;
-        countMinutes = minutes;
         countSeconds = 0;
-        //$("#start-stop-btn").toggleClass("fa-play-circle fa-pause-circle");
-        formatTimer();
+        $("#start-stop-btn").toggleClass("fa-play-circle fa-pause-circle");
+        enableSliders();
+            if(isWorktime){
+                 countMinutes = minutes;
+                 transitionToWork();
+            }else{
+                 countMinutes = breakMinutes;
+                 transitionToBreak();
+            }
+            formatTimer();
+        if($("#start-stop-btn").hasClass("fa-pause-circle")){
+            $("#start-stop-btn").toggleClass("fa-pause-circle fa-play-circle ");
+        }
         }
     });
     $("#start-stop-btn").click(function () {
         $("#start-stop-btn").toggleClass("fa-play-circle fa-pause-circle");
         if (pause == true) {
             countDown = setInterval(timer, 1000);
-            $('#work-time-slider').slider("disable");
-           $('#break-time-slider').slider("disable");
+            disableSliders();
             pause = false;
         }
         else {
             clearInterval(countDown);
-            $('#work-time-slider').slider("enable");
-           $('#break-time-slider').slider("enable");
+            enableSliders();
             pause = true;
         }
     });
@@ -94,12 +86,12 @@ $(document).ready(function () {
         if (isWorktime) {
             countMinutes = minutes;
             countSeconds = 0;
-           transitionToBreak();
+           transitionToWork();
         }
         else if (!isWorktime) {
             countMinutes = breakMinutes;
             countSeconds = 0;
-             transitionToWork();
+             transitionToBreak();
             
         }
     }
@@ -114,6 +106,7 @@ $(document).ready(function () {
             clearInterval(countDown);
             printStatus();
             $("#start-stop-btn").toggleClass("fa-play-circle fa-pause-circle");
+            enableSliders();
             pause = true;
         }
         else if (countSeconds == 0 && countMinutes != 0) {
@@ -145,12 +138,12 @@ $(document).ready(function () {
 
     function printStatus() {
         if (isWorktime) {
-            $("#timer-status").html("Get to Work!");
+            $("#timer-status").html("Focus on your work!");
             
              
         }
         else {
-            $("#timer-status").html("Take a Break"); 
+            $("#timer-status").html("Take a deep breath and relaaaax.."); 
         }
     }
 
@@ -178,7 +171,7 @@ $(document).ready(function () {
         }
     }
     
-    function transitionToWork(){
+    function transitionToBreak(){
         $(".circle").css("background","rgb(248, 99, 99)");
         $(".fill").css("background","rgb(41, 221, 41)");
         percentPerSecond = convertToPercent(breakMinutes);
@@ -188,8 +181,7 @@ $(document).ready(function () {
        
     }
     
-    function transitionToBreak(){
-        alert("Break!");
+    function transitionToWork(){
         $(".circle").css("background","rgb(41, 221, 41)");
         $(".fill").css("background","rgb(248, 99, 99)");
         percentPerSecond = convertToPercent(minutes);
@@ -197,6 +189,16 @@ $(document).ready(function () {
         timePercent = totalPercent+"%";
         $(".fill").css("height",timePercent);
         
+    }
+    
+    function enableSliders(){
+         $('#work-time-slider').slider("enable");
+         $('#break-time-slider').slider("enable");
+    }
+    
+    function disableSliders(){
+         $('#work-time-slider').slider("disable");
+         $('#break-time-slider').slider("disable");
     }
     /*************CIRCLE PROGRESS LOGIC ************/
     function convertToPercent(timeInMinutes) {

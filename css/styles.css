@@ -9,6 +9,7 @@ h1{
     font-family: 'Lobster', cursive;
     color: red;
     font-size: 450%;
+    text-align: left;
 }
 
 
@@ -68,5 +69,13 @@ a:active{
     padding: 25px;
 }
 
+/*****FOOTER*****/
+footer{
+    margin-top: 10%;
+}
 
+#linkToRepo{
+    color: black;
+    text-decoration: underline;
+}
 
